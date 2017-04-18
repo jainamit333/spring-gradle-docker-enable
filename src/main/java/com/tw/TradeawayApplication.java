@@ -1,0 +1,14 @@
+package com.tw;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+
+@SpringBootApplication
+public class TradeawayApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TradeawayApplication.class, args);
+	}
+
+}
