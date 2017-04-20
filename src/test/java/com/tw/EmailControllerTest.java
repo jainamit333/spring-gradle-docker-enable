@@ -1,6 +1,5 @@
 package com.tw;
 
-import com.sun.deploy.net.HttpResponse;
 import com.tw.controller.EmailController;
 import com.tw.domain.EmailRequest;
 import com.tw.domain.EmailResponse;
@@ -8,7 +7,6 @@ import com.tw.exception.EmailFailureException;
 import com.tw.exception.ValidationException;
 import com.tw.service.EmailService;
 import com.tw.validator.EmailRequestValidator;
-import org.hibernate.validator.constraints.Email;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by amitjain on 4/18/17.

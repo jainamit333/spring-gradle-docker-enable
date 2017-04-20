@@ -1,17 +1,15 @@
 package com.tw;
 
-import com.sun.javafx.tools.ant.DeployFXTask;
 import com.tw.domain.Email;
-import com.tw.domain.EmailId;
 import com.tw.domain.EmailRequest;
-import com.tw.exception.*;
+import com.tw.exception.EmailCreationException;
+import com.tw.exception.EmailFailureException;
+import com.tw.exception.EmailSenderException;
+import com.tw.exception.NoTemplateFoundException;
 import com.tw.service.EmailBuilder;
 import com.tw.service.EmailSender;
 import com.tw.service.EmailService;
 import com.tw.service.TemplateEvaluator;
-import org.apache.velocity.Template;
-import org.apache.velocity.app.VelocityEngine;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -54,8 +52,11 @@ public class EmailServiceTest {
 
         emailService.buildAndSendEmail(new EmailRequest());
 
-        Mockito.verify(templateEvaluator).evaluate(Mockito.anyString());
-        Mockito.verify(emailBuilder).build(Mockito.any(String.class), Mockito.any(EmailRequest.class));
+        Mockito.verify(templateEvaluator,
+                Mockito.times(2)).evaluate(Mockito.anyString());
+        Mockito.verify(emailBuilder)
+                .build(Mockito.any(String.class),Mockito.any(String.class)
+                , Mockito.any(EmailRequest.class));
         Mockito.verify(emailSender).send(Mockito.any(Email.class));
 
     }
@@ -82,7 +83,8 @@ public class EmailServiceTest {
         Mockito.when(templateEvaluator.evaluate(Mockito.anyString()))
                 .thenReturn(new String());
         Mockito.doThrow(new EmailCreationException("Missing Requirement"))
-                .when(emailBuilder).build(Mockito.any(String.class), Mockito.any(EmailRequest.class));
+                .when(emailBuilder).build(Mockito.any(String.class),Mockito.any(String.class)
+                , Mockito.any(EmailRequest.class));
 
         expectedEx.expect(EmailFailureException.class);
         expectedEx.expectMessage("Missing Requirement");
