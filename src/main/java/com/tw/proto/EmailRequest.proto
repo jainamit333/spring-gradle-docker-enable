@@ -7,12 +7,15 @@ message Sample{
 
 
     required string template_id = 1;
+
     repeated UserEmail to_list = 2;
     repeated UserEmail cc_list = 3;
     repeated UserEmail bcc_list = 4;
 
     message UserEmail{
+
         required string email = 1;
+
     }
 
     map<string,string> context_map = 5;
